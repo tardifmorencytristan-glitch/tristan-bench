@@ -1,0 +1,18 @@
+{
+  "schema": "tristan-repo-genome-r1",
+  "repository": "tardifmorencytristan-glitch/tristan-bench",
+  "visibility": "PUBLIC",
+  "role": "BENCHMARKS_RIGHT_TO_LOSE",
+  "branches": {
+    "integration": "main",
+    "production": "production"
+  },
+  "federation_root": "tardifmorencytristan-glitch/tristan-sovereign",
+  "capability_identity_rule": "CAPABILITY_IDENTITY_INDEPENDENT_OF_REPOSITORY_LOCATION",
+  "production_policy": "FEATURE_TO_MAIN_TO_PRODUCTION_WITH_READBACK",
+  "public_not_equal_production": true,
+  "right_to_split": true,
+  "right_to_merge": true,
+  "right_to_die": true,
+  "authority_granted": false
+}
