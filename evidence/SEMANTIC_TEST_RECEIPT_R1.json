@@ -1,0 +1,1 @@
+{"protocol":"TRISTAN-PHASE-ATLAS-REPLAY-R1","tests":{"passed":7,"failed":0},"verified":["regime-specific winners","no global winner","invalid trial exclusion","deterministic atlas","counterfactual utility/work replay","phase coverage"],"boundary":"Semantic tests only; no external solver benchmark is claimed."}
