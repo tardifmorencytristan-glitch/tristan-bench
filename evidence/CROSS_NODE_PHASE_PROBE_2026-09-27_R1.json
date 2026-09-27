@@ -1,0 +1,58 @@
+{
+  "schema":"TRISTAN-CROSS-NODE-PHASE-PROBE-R1",
+  "observed_on":"2026-09-27",
+  "regime_identity":"model x options x node x thermal/load state x warm/cold state x task x epoch",
+  "common_models":["qwen3.5:4b","qwen2.5-coder:3b"],
+  "options":{"think":false,"num_predict":64,"temperature":0},
+  "tasks":[
+    {"id":"arith","expected":"1591"},
+    {"id":"logic","expected":"ALPHA-BETA-GAMMA"},
+    {"id":"arith2","expected":"295"}
+  ],
+  "nodes":{
+    "FORGE-SHA9IHL":{
+      "device_id":"67804c93-8f75-4ba5-843c-ee3bb31dcc2a",
+      "hardware":{"cpu":"Intel i7-12700KF","gpu":"NVIDIA GeForce RTX 4070 Ti","ram_gb":63.76},
+      "results":{
+        "qwen3.5:4b":[
+          {"task":"arith","response":"1591","exact":true,"wall_ms":5313},
+          {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"wall_ms":159},
+          {"task":"arith2","response":"289","exact":false,"wall_ms":143}
+        ],
+        "qwen2.5-coder:3b":[
+          {"task":"arith","response":"1481","exact":false,"wall_ms":2211},
+          {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"wall_ms":79},
+          {"task":"arith2","response":"295","exact":true,"wall_ms":50}
+        ]
+      }
+    },
+    "OAK-2G1SSMT":{
+      "device_id":"6be07762-6d33-458e-99df-decf31abc2e7",
+      "hardware":{"cpu":"Intel i7-13700H","gpu":"NVIDIA GeForce RTX 4060 Laptop GPU","ram_gb":31.73},
+      "results":{
+        "qwen3.5:4b":[
+          {"task":"arith","response":"1591","exact":true,"wall_ms":19780},
+          {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"wall_ms":676},
+          {"task":"arith2","response":"289","exact":false,"wall_ms":303}
+        ],
+        "qwen2.5-coder:3b":[
+          {"task":"arith","response":"1481","exact":false,"wall_ms":29298},
+          {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"wall_ms":149},
+          {"task":"arith2","response":"295","exact":true,"wall_ms":94}
+        ]
+      }
+    }
+  },
+  "observations":[
+    "Both nodes produced the same exact/non-exact outcome pattern across the six common cases.",
+    "FORGE showed materially lower observed cold-start and warm-call latency in this probe.",
+    "Cold-start cost must be tracked separately from warm-call cost.",
+    "This is a tiny strict-format probe and does not establish general model or machine superiority."
+  ],
+  "boundaries":[
+    "Single small probe != sustained throughput benchmark",
+    "Observed wall time != causal GPU attribution",
+    "Same answers across two nodes != universal reproducibility",
+    "RegionalWinner != GlobalWinner"
+  ]
+}
