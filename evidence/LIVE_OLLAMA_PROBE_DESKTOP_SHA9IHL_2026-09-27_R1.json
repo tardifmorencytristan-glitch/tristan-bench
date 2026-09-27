@@ -1,0 +1,93 @@
+{
+  "schema":"TRISTAN-LIVE-OLLAMA-PROBE-R1",
+  "observed_on":"2026-09-27",
+  "node":{
+    "device_name":"DESKTOP-SHA9IHL",
+    "device_id":"67804c93-8f75-4ba5-843c-ee3bb31dcc2a",
+    "platform":"windows",
+    "python":"3.13.15",
+    "cpu":"12th Gen Intel(R) Core(TM) i7-12700KF",
+    "gpu":"NVIDIA GeForce RTX 4070 Ti",
+    "ram_gb":63.76
+  },
+  "ollama_models_observed":[
+    "jarvis-qwen2.5-coder:exact",
+    "qwen3.5:4b",
+    "nomic-embed-text:latest",
+    "qwen2.5-coder:3b",
+    "deepseek-r1:8b",
+    "qwen2.5-coder:7b",
+    "qwen3:4b",
+    "mistral:latest",
+    "phi4-mini:latest",
+    "llama3.2:3b",
+    "gemma3:4b"
+  ],
+  "probe_suite":{
+    "tasks":[
+      {"id":"arith","prompt_contract":"return only 37*43","expected":"1591"},
+      {"id":"logic","prompt_contract":"return exact sentinel text","expected":"ALPHA-BETA-GAMMA"},
+      {"id":"arith2","prompt_contract":"return only 17*17+6","expected":"295"}
+    ],
+    "temperature":0
+  },
+  "observations":[
+    {
+      "model":"jarvis-qwen2.5-coder:exact",
+      "options":{"num_predict":32},
+      "results":[
+        {"task":"arith","response":"1611","exact":false,"wall_ms":3669},
+        {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"wall_ms":110},
+        {"task":"arith2","response":"307","exact":false,"wall_ms":66}
+      ],
+      "exact_passes":1,
+      "exact_total":3
+    },
+    {
+      "model":"phi4-mini:latest",
+      "options":{"num_predict":32},
+      "results":[
+        {"task":"arith","response":"1511","exact":false,"wall_ms":3990},
+        {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"wall_ms":75},
+        {"task":"arith2","response":"289","exact":false,"wall_ms":56}
+      ],
+      "exact_passes":1,
+      "exact_total":3
+    },
+    {
+      "model":"qwen3.5:4b",
+      "options":{"num_predict":64,"think":false},
+      "results":[
+        {"task":"arith","response":"1591","exact":true,"total_ns":360504100},
+        {"task":"logic","response":"ALPHA-BETA-GAMMA","exact":true,"total_ns":196001800},
+        {"task":"arith2","response":"289","exact":false,"total_ns":154524600}
+      ],
+      "exact_passes":2,
+      "exact_total":3
+    },
+    {
+      "model":"deepseek-r1:8b",
+      "options":{"num_predict":64,"think":false},
+      "results":[
+        {"task":"arith","response_prefix":"<think>","exact":false,"total_ns":2054083700},
+        {"task":"logic","response_prefix":"<think>","exact":false,"total_ns":795785400},
+        {"task":"arith2","response_prefix":"<think>","exact":false,"total_ns":792529300}
+      ],
+      "exact_passes":0,
+      "exact_total":3,
+      "interpretation":"Under this configuration the model spent the output budget emitting reasoning text and failed the strict-format contract."
+    }
+  ],
+  "conclusions":[
+    "Model identity alone is insufficient; model x options x node x epoch must define the regime.",
+    "The jarvis-qwen2.5-coder:exact model did not earn an exact-arithmetic qualification in this probe.",
+    "qwen3.5:4b with think=false led this tiny exact-format suite at 2/3, but this is not a global model ranking.",
+    "Cold-load latency materially differs from warm-call latency and must be represented separately."
+  ],
+  "boundaries":[
+    "Three microtasks != GeneralCapabilityBenchmark",
+    "ExactFormatPASS != ReasoningQuality",
+    "SingleNodeObservation != CrossNodePhaseWinner",
+    "ProbeResult != GlobalModelRank"
+  ]
+}
