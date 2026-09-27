@@ -1,0 +1,11 @@
+{
+  "schema":"tristan-capabilities-r1",
+  "owner_repo":"tardifmorencytristan-glitch/tristan-bench",
+  "status":"MIGRATION_CANDIDATE",
+  "capabilities":[
+    {"uri":"tristan://capability/bench/phase-atlas","symbols":["RegimeKey","Trial","PhaseAtlas","build_phase_atlas","solver_for"]},
+    {"uri":"tristan://capability/bench/counterfactual-replay","symbols":["HistoricalDecision","ReplayCandidate","ReplayResult","replay"]},
+    {"uri":"tristan://capability/bench/coverage","symbols":["phase_coverage"]}
+  ],
+  "boundary":"Phase winners are regime-specific; no global solver superiority is inferred."
+}
